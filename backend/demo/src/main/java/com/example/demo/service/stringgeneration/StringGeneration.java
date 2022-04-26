@@ -6,7 +6,7 @@ import java.util.*;
  * Класс для генерации строковых данных
  *
  * @author Ivan Cherepanov
- * */
+ */
 public class StringGeneration {
     private DataResource dataResource;
     private Random randomGenerator = new Random();
@@ -27,10 +27,10 @@ public class StringGeneration {
      * @param amountOfRecords число записей
      * @return рандомный словарь строк
      */
-    public Map<DataType, List<String>> getResult(List<DataType> inputParameters, int  amountOfRecords){
+    public Map<DataType, List<String>> getResult(List<DataType> inputParameters, int amountOfRecords) {
         Map<DataType, List<String>> result = new HashMap<>();
-        for (DataType inputString: inputParameters) {
-            result.put(inputString,getListByParameter(dataResource.getList(inputString),amountOfRecords));
+        for (DataType inputString : inputParameters) {
+            result.put(inputString, getListByParameter(dataResource.getList(inputString), amountOfRecords));
         }
         return result;
     }
@@ -38,11 +38,11 @@ public class StringGeneration {
     /**
      * Метод для возврата списка, считанного из файла
      *
-     * @param oneList массив значений определенного типа, из которого будет производиться рандомная выборка
+     * @param oneList         массив значений определенного типа, из которого будет производиться рандомная выборка
      * @param amountOfRecords число записей
      * @return рандомный список значений согласно входным данным
      */
-    private List<String> getListByParameter(List<String> oneList, int amountOfRecords){
+    private List<String> getListByParameter(List<String> oneList, int amountOfRecords) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < amountOfRecords; i++) {
             result.add(oneList.
