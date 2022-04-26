@@ -11,7 +11,7 @@ import java.util.List;
  * Временный вспомогательный класс для генерации
  *
  * @author Ivan Cherepanov
- * */
+ */
 public class DataResource {
     private static final String NAMEFILE = "backend/demo/src/main/resources/textFile/name.txt";
     private static final String MIDDLENAMEFILE = "backend/demo/src/main/resources/textFile/middleName.txt";
@@ -23,9 +23,9 @@ public class DataResource {
      * @param type параметр-имя, массив значений которого нужно получить
      * @return считанный массив строк
      */
-    public List<String> getList(DataType type){
+    public List<String> getList(DataType type) {
         String filename;
-        switch (type){
+        switch (type) {
             case NAME:
                 filename = NAMEFILE;
                 break;
@@ -40,7 +40,7 @@ public class DataResource {
         }
 
         List<String> result = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filename))){
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             while (br.ready()) {
                 result.add(br.readLine());
             }

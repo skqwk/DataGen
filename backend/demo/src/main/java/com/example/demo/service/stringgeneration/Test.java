@@ -7,7 +7,7 @@ import java.util.List;
  * Класс для проверки вместо теста
  *
  * @author Ivan Cherepanov
- * */
+ */
 public class Test {
     public static void main(String[] args) {
 
