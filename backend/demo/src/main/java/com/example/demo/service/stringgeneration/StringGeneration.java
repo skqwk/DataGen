@@ -1,4 +1,4 @@
-package com.example.demo.service.stringGeneration;
+package com.example.demo.service.stringgeneration;
 
 import java.util.*;
 
@@ -27,9 +27,9 @@ public class StringGeneration {
      * @param amountOfRecords число записей
      * @return рандомный словарь строк
      */
-    public Map<String, List<String>> getResult(List<String> inputParameters, int  amountOfRecords){
-        Map<String, List<String>> result = new HashMap<>();
-        for (String inputString: inputParameters) {
+    public Map<DataType, List<String>> getResult(List<DataType> inputParameters, int  amountOfRecords){
+        Map<DataType, List<String>> result = new HashMap<>();
+        for (DataType inputString: inputParameters) {
             result.put(inputString,getListByParameter(dataResource.getList(inputString),amountOfRecords));
         }
         return result;

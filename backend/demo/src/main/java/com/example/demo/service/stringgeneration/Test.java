@@ -1,4 +1,4 @@
-package com.example.demo.service.stringGeneration;
+package com.example.demo.service.stringgeneration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,10 +14,10 @@ public class Test {
         /**
          * Пример, что будет в массив, при выборе пользователем полей для генерации
          * */
-        List<String> strings = new ArrayList<>();
-        strings.add("name");
-        strings.add("middleName");
-        strings.add("surname");
+        List<DataType> strings = new ArrayList<>();
+        strings.add(DataType.NAME);
+        strings.add(DataType.MIDDLENAME);
+        strings.add(DataType.SURNAME);
 
         /**
          * Пример запуска

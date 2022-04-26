@@ -1,4 +1,4 @@
-package com.example.demo.service.stringGeneration;
+package com.example.demo.service.stringgeneration;
 
 
 import java.io.BufferedReader;
@@ -23,16 +23,16 @@ public class DataResource {
      * @param type параметр-имя, массив значений которого нужно получить
      * @return считанный массив строк
      */
-    public List<String> getList(String type){
+    public List<String> getList(DataType type){
         String filename;
         switch (type){
-            case "name":
+            case NAME:
                 filename = NAMEFILE;
                 break;
-            case "middleName":
+            case MIDDLENAME:
                 filename = MIDDLENAMEFILE;
                 break;
-            case "surname":
+            case SURNAME:
                 filename = SURNAMEFILE;
                 break;
             default:
