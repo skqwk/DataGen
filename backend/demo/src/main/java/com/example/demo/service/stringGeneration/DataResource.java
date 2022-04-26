@@ -2,7 +2,6 @@ package com.example.demo.service.stringGeneration;
 
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,12 +9,20 @@ import java.util.List;
 
 /**
  * Временный вспомогательный класс для генерации
+ *
+ * @author Ivan Cherepanov
  * */
 public class DataResource {
     private static final String NAMEFILE = "backend/demo/src/main/resources/textFile/name.txt";
     private static final String MIDDLENAMEFILE = "backend/demo/src/main/resources/textFile/middleName.txt";
     private static final String SURNAMEFILE = "backend/demo/src/main/resources/textFile/surname.txt";
 
+    /**
+     * Метод для возврата списка, считанного из файла
+     *
+     * @param type параметр-имя, массив значений которого нужно получить
+     * @return считанный массив строк
+     */
     public List<String> getList(String type){
         String filename;
         switch (type){
