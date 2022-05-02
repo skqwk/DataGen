@@ -1,15 +1,17 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite';
 import RemoveIcon from '@mui/icons-material/Remove';
-import { Box, Button, Container, Divider, IconButton, MenuItem, 
-         Paper, Stack, TextField, Typography, Dialog, DialogActions, 
-         DialogContentText, DialogTitle, DialogContent } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import {
+    Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, List, ListItem,
+    ListItemAvatar, ListItemText, MenuItem,
+    Paper, Stack, TextField, Typography
+} from '@mui/material';
 import MuiInput from '@mui/material/Input';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import React, { useState } from 'react';
-import { engFields, engTypes, fieldsAttributes, types } from './config/setup';
 import { DataGenService } from './API/DataGenService';
-import SettingsIcon from '@mui/icons-material/Settings';
+import { developers, engFields, engTypes, fieldsAttributes, types } from './config/setup';
 
 const App = () => {
 
@@ -29,17 +31,18 @@ const App = () => {
         },
       });
 
+    const [amount, setAmount] = useState(1);
     const [name, setName] = useState("");
     const [open, setOpen] = useState(false);
-    const [amount, setAmount] = useState(1);
+    
+    const handleOpen = () => {setOpen(true);}
+    const handleClose = () => {setOpen(false);}
+    
+    const [openDetails, setOpenDetails] = useState(false);
 
-    const handleOpen = () => {
-        setOpen(true);
-    }
+    const handleOpenDetails = () => {setOpenDetails(true);}
+    const handleCloseDetails = () => {setOpenDetails(false);}
 
-    const handleClose = () => {
-        setOpen(false);
-    }
 
     const [inputFields, setInputFields] = useState([
         {name: "name", type: "name"},
@@ -93,10 +96,24 @@ const App = () => {
         <Container component={Paper} sx={{display: "flex", alignItems: "center", flexDirection: "column", p: 5,  backdropFilter: "blur(5px)"}}>
         <Button variant="text" size="large" 
                 endIcon={<SettingsIcon/>} 
-                 sx={{mb: 5}}>
+                 sx={{mb: 5}}
+                 onClick={handleOpenDetails}
+                 >
         DATAGEN
         </Button>
-            
+            <Dialog onClose={handleCloseDetails} open={openDetails}>
+            <DialogTitle>Разработчики</DialogTitle>
+            <List sx={{ pt: 0 }}>
+                {developers.map((developer) => (
+                <ListItem key={developer.name}>
+                    <ListItemAvatar>
+                    <Avatar src={`https://avatars.githubusercontent.com/${developer.name}`}/>
+                    </ListItemAvatar>
+                    <ListItemText primary={developer.name} secondary={developer.details}/>
+                </ListItem>
+                ))}
+            </List>
+            </Dialog>
             
             
             <Box width="700px" component="form" onSubmit={handleSubmit} >

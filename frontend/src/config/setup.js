@@ -28,3 +28,23 @@ export const fieldsAttributes = {
         to: "",
     }
 }
+
+export const developers = [
+    {
+        name: "skqwk",
+        details: "UI"
+    },
+    {
+        name: "IvanCherepanov",
+        details: "Генерация строковых данных"
+    },
+    {
+        name: "MatweyL",
+        details: "Генерация числовых данных"
+    },
+    {
+        name: "NIKKELK",
+        details: "Парсинг данных"
+    },
+
+]
