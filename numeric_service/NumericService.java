@@ -1,53 +1,65 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class NumericService {
 
-    /*
-    * На вход поступает список, в котором лежат структуры следующего вида:
-    * {
-    *   НАЗВАНИЕ_1: {
-    *                   ДИАПАЗОН: [-1, 500.01],
-    *                   ТИП: INT/DOUBLE/ARRAY,
-    *                   КОЛИЧЕСТВО_ЦИФР: ЧИСЛО (INT), если type = int
-    *                   МАССИВ_РАЗМЕР: > 0, (если array)
-    *                   ТИП_ЭЛЕМЕНТОВ МАССИВА: INT/DOUBLE,
-    *   },
-    *
-    *   field {
-    *   name : "name"
-    *   type : string / num
-    *   details : {
-    *       type: float / int
-    *       range: [1, 2]
-    *   }
-    *  }
-    *   ...
-    * } + необходимое количество записей
-    * По названию структуры мы вызываем соответствующий метод
-    *
-    *
-    * {
-    *   age: {
-    *           range: [10, 35],
-    *           type: int,
-    *        },
-    *   passport_code: {
-    *           range: [0, MAX_NUMBER],
-    *           type: int,
-    *           digit_number: 8,
-    *       },
-    *   math_marks: {
-    *           range: [1, 5],
-    *           type: array,
-    *           array_len: 10,
-    *           array_item_type: int,
-    *   }
-    *   amount: 5;
-    * }
-    *
-    * */
+    private static final double MIN_DOUBLE = Double.MIN_VALUE;
+    private static final double MAX_DOUBLE = Double.MAX_VALUE;
+    private static final int MIN_INTEGER = Integer.MIN_VALUE;
+    private static final int MAX_INTEGER = Integer.MIN_VALUE;
 
-    public void getRandomData() {
 
+    public List<List<Number>> getRandomArrays(int numberOfArrays, int leftBound, int rightBound, int arrayLength, NumberType numberType) {
+        List<List<Number>> randomArrays = new ArrayList<>();
+        for (int i = 0; i < numberOfArrays; i++) {
+            randomArrays.add(getRandomArray(leftBound, rightBound, arrayLength, numberType));
+        }
+        return randomArrays;
     }
+
+    public List<Integer> getRandomIntegers(int numberOfIntegers, int leftBound, int rightBound) {
+        List<Integer> randomIntegers = new ArrayList<>();
+        for (int i = 0; i < numberOfIntegers; i++) {
+            randomIntegers.add(getRandomInteger(leftBound, rightBound));
+        }
+        return randomIntegers;
+    }
+
+    public List<Double> getRandomDoubles(int numberOfDoubles, int leftBound, int rightBound) {
+        List<Double> randomDoubles = new ArrayList<>();
+        for (int i = 0; i < numberOfDoubles; i++) {
+            randomDoubles.add(getRandomDouble(leftBound, rightBound));
+        }
+        return randomDoubles;
+    }
+
+    public List<Integer> getRandomIntegersFixedLength(int numberOfIntegers, int numberOfDigits) {
+        List<Integer> randomIntegers = new ArrayList<>();
+        for (int i = 0; i < numberOfIntegers; i++) {
+            randomIntegers.add(getRandomIntegerFixedLength(numberOfDigits));
+        }
+        return randomIntegers;
+    }
+
+    public List<Number> getRandomArray(int leftBound, int rightBound, int arrayLength, NumberType numberType) {
+        List<Number> array = new ArrayList<>(arrayLength);
+        switch (numberType) {
+            case INTEGER: {
+                for (int i = 0; i < arrayLength; i++) {
+                    array.add(getRandomInteger(leftBound, rightBound));
+                }
+                break;
+            }
+            case DOUBLE: {
+                for (int i = 0; i < arrayLength; i++) {
+                    array.add(getRandomDouble(leftBound, rightBound));
+                }
+                break;
+            }
+        }
+        return array;
+    }
+
 
     public int getRandomInteger(int leftBound, int rightBound) {
         return (int)(Math.round(Math.random() * (rightBound - leftBound) + leftBound));
@@ -57,11 +69,23 @@ public class NumericService {
         return Math.random() * (rightBound - leftBound) + leftBound;
     }
 
-    public int getRandomInteger(int numberOfDigits) {
+    public long getRandomDigit() {
+        return (Math.round(Math.random() * 9));
+    }
+
+    public int getRandomIntegerFixedLength(int numberOfDigits) {
         int answer = 0;
         int digitOrder = 1;
         for (int i = 0; i < numberOfDigits; i++) {
-            answer += digitOrder * (Math.round(Math.random() * 9));
+            long digit = 0;
+            if (i == numberOfDigits - 1) {
+                while (digit == 0) {
+                    digit = getRandomDigit();
+                }
+            } else {
+                digit = getRandomDigit();
+            }
+            answer += digit * digitOrder;
             digitOrder *= 10;
         }
         return answer;
