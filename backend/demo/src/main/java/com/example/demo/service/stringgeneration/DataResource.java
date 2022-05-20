@@ -1,10 +1,12 @@
 package com.example.demo.service.stringgeneration;
 
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 class DataResource{
 
     public List<String> getList(DataType type) {

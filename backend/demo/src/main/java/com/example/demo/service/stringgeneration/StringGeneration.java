@@ -1,5 +1,7 @@
 package com.example.demo.service.stringgeneration;
 
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 /**
@@ -7,6 +9,8 @@ import java.util.*;
  *
  * @author Ivan Cherepanov
  */
+
+@Service
 public class StringGeneration {
     private DataResource dataResource;
     private Random randomGenerator = new Random();

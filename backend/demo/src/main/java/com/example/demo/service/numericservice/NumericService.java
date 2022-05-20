@@ -1,6 +1,11 @@
+package com.example.demo.service.numericservice;
+
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class NumericService {
 
     private static final double MIN_DOUBLE = Double.MIN_VALUE;
