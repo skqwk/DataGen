@@ -3,13 +3,14 @@ import PlayCircleFilledWhiteIcon from '@mui/icons-material/PlayCircleFilledWhite
 import RemoveIcon from '@mui/icons-material/Remove';
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
-    Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, IconButton, List, ListItem,
-    ListItemAvatar, ListItemText, MenuItem,
-    Paper, Stack, TextField, Typography
+    Avatar, Box, Button, Container, Dialog, DialogActions, DialogContent,
+    DialogContentText, DialogTitle, Divider, IconButton, List, ListItem, Alert,
+    ListItemAvatar, ListItemText, MenuItem, Paper, Stack, TextField, Typography,
+    Backdrop, CircularProgress
 } from '@mui/material';
 import MuiInput from '@mui/material/Input';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DataGenService } from './API/DataGenService';
 import { developers, engFields, engTypes, fieldsAttributes, types } from './config/setup';
 
@@ -26,7 +27,8 @@ const App = () => {
           },
           fontFamily: [
             'Inter',
-            'Roboto'
+            'Roboto',
+            'Anonymous Pro'
           ].join(','),
         },
       });
@@ -34,6 +36,7 @@ const App = () => {
     const [amount, setAmount] = useState(1);
     const [name, setName] = useState("");
     const [open, setOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     
     const handleOpen = () => {setOpen(true);}
     const handleClose = () => {setOpen(false);}
@@ -50,7 +53,17 @@ const App = () => {
         {name: "patronymic", type: "patronymic"},
     ])
 
+    const [formErrors, setFormErrors] = useState("");
+    const [openError, setOpenError] = useState(false);
+    const handleOpenErrors = () => {setOpenError(true);}
+    const handleCloseErrors = () => {
+        setOpenError(false);
+    }
 
+
+    const [response, setResponse] = useState("");
+    const [visible, setVisible] = useState(false);
+    const [isSubmit, setIsSubmit] = useState(false);
 
     const handleChangeInput = (index, e) => {
         const values = [...inputFields];
@@ -71,14 +84,65 @@ const App = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let request = {name, amount, fields: inputFields};
-        console.log("Generate!")
-        console.log(request);
-        console.log(JSON.stringify(request));
-        DataGenService.sendRequest(request).then((response) => {
-            console.log(response);
-        })
         handleClose();
+        validate(inputFields);
+    }
+
+
+    useEffect(() => {
+        if (isSubmit) {
+            setVisible(false);
+            setResponse('');
+            setIsLoading(true);
+            let request = {name, amount, fields: inputFields};
+            console.log("Generate!")
+            console.log(request);
+            console.log(JSON.stringify(request));
+            DataGenService.sendRequest(request)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                setResponse(JSON.stringify(json, undefined, 4));
+                setIsLoading(false);
+                setIsSubmit(false);
+                setVisible(true);
+            });
+        }
+    }, [isSubmit]);
+
+    useEffect(() => {
+        if (formErrors.length > 0) {
+            handleOpenErrors();
+        } else {
+            setOpenError(false);
+        }
+    }, [formErrors])
+
+    useEffect(() => {
+        if (!openError) {
+            setFormErrors('');
+        }
+    }, [openError])
+
+    const validate = (fields) => {
+        console.log('VALIDATE');
+        let names = [];
+        for (let i in fields) {
+            let field = fields[i];
+            if (field.name.length === 0) {
+                setFormErrors('Именя полей не должны быть пустыми!')
+                return;
+            }
+            else if (names.includes(field.name) ) {
+                setFormErrors('Имена должны быть уникальными!')
+                return;
+            }
+            else {
+                names.push(field.name);
+            }
+        }
+        console.log('VALIDATION SUCCESS');
+        setIsSubmit(true);
     }
 
     const handleAddFields = () => {
@@ -115,6 +179,16 @@ const App = () => {
             </List>
             </Dialog>
             
+            <Dialog onClose={handleCloseErrors} open={openError}>
+                <DialogTitle>Ошибка!</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        <Alert severity="error">
+                            {formErrors}
+                        </Alert>
+                    </DialogContentText>
+                </DialogContent>
+            </Dialog>
             
             <Box width="700px" component="form" onSubmit={handleSubmit} >
             <Dialog open={open} onClose={handleClose}
@@ -207,8 +281,31 @@ const App = () => {
                 : null
                 }
             </Stack>
+            { visible 
+            ? 
+            <Box>
+            <Typography variant="subtitle1">Результат</Typography>
+            <Divider sx={{mb: 2}}/>
+            <TextField
+                InputProps={{ style: { fontSize: 16, fontFamily: 'Anonymous Pro' }}}
+                id="outlined-multiline-flexible"
+                fullWidth
+                multiline
+                maxRows={10}
+                value={response}
+                />
+            <Button onClick={() => setVisible(false)}>Очистить</Button>
+            </Box>
+            : null
+            }
             </Box>
         </Container>
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={isLoading}
+        >
+        <CircularProgress color="inherit" />
+        </Backdrop>
         </ThemeProvider>
 
     );
