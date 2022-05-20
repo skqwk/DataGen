@@ -1,52 +1,116 @@
 package com.example.demo.service.stringgeneration;
 
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Временный вспомогательный класс для генерации
- *
- * @author Ivan Cherepanov
- */
-public class DataResource {
-    private static final String NAMEFILE = "backend/demo/src/main/resources/textFile/name.txt";
-    private static final String MIDDLENAMEFILE = "backend/demo/src/main/resources/textFile/middleName.txt";
-    private static final String SURNAMEFILE = "backend/demo/src/main/resources/textFile/surname.txt";
 
-    /**
-     * Метод для возврата списка, считанного из файла
-     *
-     * @param type параметр-имя, массив значений которого нужно получить
-     * @return считанный массив строк
-     */
+class DataResource{
+
     public List<String> getList(DataType type) {
-        String filename;
         switch (type) {
-            case NAME:
-                filename = NAMEFILE;
-                break;
             case MIDDLENAME:
-                filename = MIDDLENAMEFILE;
-                break;
+                return getListOfPatronymics();
+            case NAME:
+                return getListOfNames();
             case SURNAME:
-                filename = SURNAMEFILE;
-                break;
+                return getListOfSurnames();
             default:
-                throw new IllegalStateException("Unexpected value: " + type);
+                return new ArrayList<>();
+
+        }
+    }
+
+
+    private List<String> getListOfSurnames(){
+        List<String> surnames = new ArrayList<String>();
+        // Путь к директории:
+        String path="src\\main\\resources\\";
+        // Текстовая переменная для записи считываемых из файла строк:
+        String str;
+        try{
+            // Объект буферизированного потока ввода:
+            BufferedReader input=new BufferedReader(new FileReader(path+"Surnames.txt"));
+
+            // Считывание строк из одного файла и запись в другой файл:
+            while((str=input.readLine())!=null){
+                surnames.add(str);
+            }
+            // Поток закрывается:
+            input.close();
+            return(surnames);
         }
 
-        List<String> result = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            while (br.ready()) {
-                result.add(br.readLine());
-            }
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+        // Обработка исключений:
+
+        catch(FileNotFoundException e){
+            System.out.println("Файл не найден: "+e);
+            return(surnames);
         }
-        return result;
+
+        catch(IOException e){
+            System.out.println("Ошибка доступа к файлу: "+e);
+            return(surnames);
+        }
+    }
+
+    private List<String> getListOfNames(){
+        List<String> names = new ArrayList<String>();
+        // Путь к директории:
+        String path="src\\main\\resources\\";
+        // Текстовая переменная для записи считываемых из файла строк:
+        String str;
+        try{
+            // Объект буферизированного потока ввода:
+            BufferedReader input=new BufferedReader(new FileReader(path+"Names.txt"));
+            // Считывание строк из одного файла и запись в другой файл:
+            while((str=input.readLine())!=null){
+                names.add(str);
+            }
+            // Поток закрывается:
+            input.close();
+            return(names);
+        }
+
+        // Обработка исключений:
+        catch(FileNotFoundException e){
+            System.out.println("Файл не найден: "+e);
+            return(names);
+        }
+
+        catch(IOException e){
+            System.out.println("Ошибка доступа к файлу: "+e);
+            return(names);
+        }
+    }
+
+    private List<String> getListOfPatronymics(){
+        List<String> patronymics = new ArrayList<String>();
+        // Путь к директории:
+        String path="src\\main\\resources\\";
+        // Текстовая переменная для записи считываемых из файла строк:
+        String str;
+        try{
+            // Объект буферизированного потока ввода:
+            BufferedReader input=new BufferedReader(new FileReader(path+"Patronymics.txt"));
+            // Считывание строк из одного файла и запись в другой файл:
+            while((str=input.readLine())!=null){
+                patronymics.add(str);
+            }
+            // Поток закрывается:
+            input.close();
+            return(patronymics);
+        }
+
+        // Обработка исключений:
+        catch(FileNotFoundException e){
+            System.out.println("Файл не найден: "+e);
+            return(patronymics);
+        }
+
+        catch(IOException e){
+            System.out.println("Ошибка доступа к файлу: "+e);
+            return(patronymics);
+        }
     }
 }
