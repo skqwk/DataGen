@@ -9,7 +9,7 @@ export const engTypes = {
     NAME: "Имя",
     SURNAME: "Фамилия",
     PATRONYMIC: "Отчество",
-    INT: "Целое число",
+    INTEGER: "Целое число",
     DOUBLE: "Вещественное число"
 }
 
@@ -18,12 +18,12 @@ export const types = [
     "SURNAME",
     "NAME",
     "PATRONYMIC",
-    "INT",
+    "INTEGER",
     "DOUBLE"
 ];
 
 export const fieldsAttributes = {
-    INT: {
+    INTEGER: {
         from: "",
         to: "",
     },
