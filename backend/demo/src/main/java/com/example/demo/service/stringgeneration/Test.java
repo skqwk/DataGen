@@ -16,7 +16,7 @@ public class Test {
          * */
         List<DataType> strings = new ArrayList<>();
         strings.add(DataType.NAME);
-        strings.add(DataType.MIDDLENAME);
+        strings.add(DataType.PATRONYMIC);
         strings.add(DataType.SURNAME);
 
         /**

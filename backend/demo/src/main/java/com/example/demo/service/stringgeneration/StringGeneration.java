@@ -40,6 +40,17 @@ public class StringGeneration {
     }
 
     /**
+     * Метод для возврата списка по типу, считанного из файла
+     *
+     * @param inputParameter массив значений, для которых нужно сгенерировать списки
+     * @param amountOfRecords число записей
+     * @return рандомный список строк
+     */
+    public List<String> getResult(DataType inputParameter, int amountOfRecords) {
+        return getListByParameter(dataResource.getList(inputParameter), amountOfRecords);
+    }
+
+    /**
      * Метод для возврата списка, считанного из файла
      *
      * @param oneList         массив значений определенного типа, из которого будет производиться рандомная выборка
