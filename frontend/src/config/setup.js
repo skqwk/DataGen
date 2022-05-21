@@ -6,24 +6,28 @@ export const engFields = {
 }
 
 export const engTypes = {
-    name: "Имя",
-    surname: "Фамилия",
-    patronymic: "Отчество",
-    int: "Целое число",
-    double: "Вещественное число"
+    NAME: "Имя",
+    SURNAME: "Фамилия",
+    PATRONYMIC: "Отчество",
+    INTEGER: "Целое число",
+    DOUBLE: "Вещественное число"
 }
 
 
 export const types = [
-    "name",
-    "surname",
-    "patronymic",
-    "int",
-    "double"
+    "SURNAME",
+    "NAME",
+    "PATRONYMIC",
+    "INTEGER",
+    "DOUBLE"
 ];
 
 export const fieldsAttributes = {
-    int: {
+    INTEGER: {
+        from: "",
+        to: "",
+    },
+    DOUBLE: {
         from: "",
         to: "",
     }

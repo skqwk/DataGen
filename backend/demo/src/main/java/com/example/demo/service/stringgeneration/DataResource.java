@@ -1,15 +1,20 @@
 package com.example.demo.service.stringgeneration;
 
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Component
 class DataResource{
+
+    private static final String path="src\\main\\resources\\textFile\\";
+
 
     public List<String> getList(DataType type) {
         switch (type) {
-            case MIDDLENAME:
+            case PATRONYMIC:
                 return getListOfPatronymics();
             case NAME:
                 return getListOfNames();
@@ -24,13 +29,11 @@ class DataResource{
 
     private List<String> getListOfSurnames(){
         List<String> surnames = new ArrayList<String>();
-        // Путь к директории:
-        String path="src\\main\\resources\\";
         // Текстовая переменная для записи считываемых из файла строк:
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"Surnames.txt"));
+            BufferedReader input=new BufferedReader(new FileReader(path+"surname.txt"));
 
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
@@ -56,13 +59,11 @@ class DataResource{
 
     private List<String> getListOfNames(){
         List<String> names = new ArrayList<String>();
-        // Путь к директории:
-        String path="src\\main\\resources\\";
         // Текстовая переменная для записи считываемых из файла строк:
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"Names.txt"));
+            BufferedReader input=new BufferedReader(new FileReader(path+"name.txt"));
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
                 names.add(str);
@@ -86,13 +87,11 @@ class DataResource{
 
     private List<String> getListOfPatronymics(){
         List<String> patronymics = new ArrayList<String>();
-        // Путь к директории:
-        String path="src\\main\\resources\\";
         // Текстовая переменная для записи считываемых из файла строк:
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"Patronymics.txt"));
+            BufferedReader input=new BufferedReader(new FileReader(path+"patronymic.txt"));
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
                 patronymics.add(str);

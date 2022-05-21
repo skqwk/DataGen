@@ -1,5 +1,7 @@
 package com.example.demo.service.stringgeneration;
 
+import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 /**
@@ -7,6 +9,8 @@ import java.util.*;
  *
  * @author Ivan Cherepanov
  */
+
+@Service
 public class StringGeneration {
     private DataResource dataResource;
     private Random randomGenerator = new Random();
@@ -33,6 +37,17 @@ public class StringGeneration {
             result.put(inputString, getListByParameter(dataResource.getList(inputString), amountOfRecords));
         }
         return result;
+    }
+
+    /**
+     * Метод для возврата списка по типу, считанного из файла
+     *
+     * @param inputParameter массив значений, для которых нужно сгенерировать списки
+     * @param amountOfRecords число записей
+     * @return рандомный список строк
+     */
+    public List<String> getResult(DataType inputParameter, int amountOfRecords) {
+        return getListByParameter(dataResource.getList(inputParameter), amountOfRecords);
     }
 
     /**

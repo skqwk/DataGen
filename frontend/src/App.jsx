@@ -48,9 +48,9 @@ const App = () => {
 
 
     const [inputFields, setInputFields] = useState([
-        {name: "name", type: "name"},
-        {name: "surname", type: "surname"},
-        {name: "patronymic", type: "patronymic"},
+        {name: "name", type: "NAME"},
+        {name: "surname", type: "SURNAME"},
+        {name: "patronymic", type: "PATRONYMIC"},
     ])
 
     const [formErrors, setFormErrors] = useState("");
@@ -99,7 +99,7 @@ const App = () => {
             console.log(request);
             console.log(JSON.stringify(request));
             DataGenService.sendRequest(request)
-            .then((response) => response.json())
+            // .then((response) => response.json())
             .then((json) => {
                 console.log(json);
                 setResponse(JSON.stringify(json, undefined, 4));

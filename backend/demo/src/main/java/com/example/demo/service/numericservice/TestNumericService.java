@@ -1,3 +1,7 @@
+package com.example.demo.service.numericservice;
+
+import com.example.demo.service.numericservice.NumericService;
+
 public class TestNumericService {
 
     public static void main(String[] args) {
