@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://mirea-datagen-front.herokuapp.com/"})
 public class GenerateController {
     private final NumericService numericService;
     private final StringGeneration stringGeneration;
@@ -81,6 +81,11 @@ public class GenerateController {
 
         return ResponseEntity.ok()
                 .body(objects);
+    }
+
+    @GetMapping("/status")
+    public ResponseEntity<?> status() {
+        return ResponseEntity.ok().body("Server is work");
     }
 
 }

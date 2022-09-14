@@ -3,6 +3,7 @@ package com.example.demo.service.stringgeneration;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,10 @@ class DataResource{
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"surname.txt"));
+
+//            BufferedReader input=new BufferedReader(new FileReader(path+"surname.txt"));
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream("textFile/surname.txt");
+            BufferedReader input=new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
@@ -63,7 +67,9 @@ class DataResource{
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"name.txt"));
+//            BufferedReader input=new BufferedReader(new FileReader(path+"name.txt"));
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream("textFile/name.txt");
+            BufferedReader input=new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
                 names.add(str);
@@ -91,7 +97,9 @@ class DataResource{
         String str;
         try{
             // Объект буферизированного потока ввода:
-            BufferedReader input=new BufferedReader(new FileReader(path+"patronymic.txt"));
+//            BufferedReader input=new BufferedReader(new FileReader(path+"patronymic.txt"));
+            InputStream in = this.getClass().getClassLoader().getResourceAsStream("textFile/patronymic.txt");
+            BufferedReader input=new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
             // Считывание строк из одного файла и запись в другой файл:
             while((str=input.readLine())!=null){
                 patronymics.add(str);
